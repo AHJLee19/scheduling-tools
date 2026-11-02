@@ -11,14 +11,16 @@ NOTE: Location will always be either 'IN' for Indianapolis or 'WL' for West Lafa
 
 public class Class() {
     private String name;
-    private LocalTime time;
+    private LocalTime startTime;
+    private LocalTime endTime;
     //Note: will always be "IN" or "WL" or will throw an error
     private String location;
 
     //constructor where 'time' is a LocalTime
-    public Class(String name, LocalTime time; String location) throws Exception {
+    public Class(String name, LocalTime startTime, LocalTime endTime, String location) throws Exception {
         this.name = name;
-        this.time = time;
+        this.startTime = startTime;
+        this.endTime = endTime
 
         if (location.equals("IN") || location.equals("WL")) {
             this.location = location;
@@ -28,11 +30,17 @@ public class Class() {
     }
 
     //constructor where 'time' is a String
-    public Class(String name, String time; String location) throws Exception {
+    public Class(String name, String startTime, String endTime, String location) throws Exception {
         this.name = name;
 
         try {
-            this.time = LocalTime.parse(time);
+            this.startTime = LocalTime.parse(startTime);
+        } catch (DateTimeParseException e) {
+            throw new (Exception("Error parsing time string to LocalTime: " + e.getMessage()));
+        }
+
+        try {
+            this.endTime = LocalTime.parse(endTime);
         } catch (DateTimeParseException e) {
             throw new (Exception("Error parsing time string to LocalTime: " + e.getMessage()));
         }
